@@ -1,20 +1,15 @@
-.main-page {
+.main-page2 {
     background-image: url(../../Images/cars.webp);
     background-size: cover;
     background-position: center;
-    height: 100vh;
-
+    height: 150vh;
     .inner-page {
-        height: 100vh;
-        a{
-            text-decoration: none;
-            color: bisque;
-            margin-top: 20px !important;
-        }
+        padding-bottom: 30px;        
         .login-page {
+            height: auto;
             max-width: 500px;
             margin: auto;
-            padding-top: 180px;
+            padding-top: 100px;
             text-align: center;
 
             h3 {
@@ -44,7 +39,6 @@
                 background-color: chocolate;
                 border: none;
                 margin-bottom: 20px;
-
                 &:hover {
                     background-color: maroon;
                     border: maroon;
@@ -55,6 +49,10 @@
                 color: red;
                 font-size: 13px;
             }
+        }
+        a{
+         text-decoration: none;
+         color: aqua;
         }
     }
 }
