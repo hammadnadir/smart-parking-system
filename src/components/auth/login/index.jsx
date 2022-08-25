@@ -2,12 +2,13 @@ import { Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import { Form } from "react-bootstrap"
 import "./styles.scss"
-import { Link, useRoutes } from 'react-router-dom'
+import { Link  ,useNavigate } from 'react-router-dom'
 
 function Login() {
 
     const [inputData, setInputData] = useState({})
     const [err, setErr] = useState({})
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,6 +43,7 @@ function Login() {
         } else {
             console.log(inputData)
             setErr({})
+            navigate("/cars");
 
         }
     }

@@ -1,0 +1,63 @@
+.page2{
+        text-align: center;
+        margin-top: 30px;
+}
+.modal-content{
+    text-align: center;
+    padding: 40px 0px;
+    h2{
+        margin-bottom: 20px;
+        color: brown;
+    }
+    input{
+        width: 80%;
+        margin: auto;
+        padding: 7px 10px;
+        margin-bottom: 20px;
+    }
+    Button{
+        width: 40%;
+        margin: auto;
+    }
+}
+.space{
+    text-align: center;
+    margin-top: 30px;
+}
+.cars{
+    background-color: aliceblue;
+    margin-top: 30px;
+    padding: 15px;
+    padding-left: 40px !important;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .numbers{
+        display: flex;
+    }
+    h5{
+        padding-left: 80px;
+    }
+}
+.icones{
+    text-align: end;
+    padding-right: 30px;
+i{
+    cursor: pointer;
+    text-align: end;
+    padding-left: 40px;
+    font-size: large;
+    &:nth-child(2){
+    &:hover{
+        color: red;
+    }
+}
+&:nth-child(1){
+    &:hover{
+        color: blue;
+    }
+}
+}
+}
