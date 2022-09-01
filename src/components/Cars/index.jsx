@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Nav,
@@ -10,7 +10,12 @@ import {
 import { Link } from "react-router-dom";
 import "./styles.scss";
 
-function Cars() {
+function Cars({inputText ,setInputText }) {
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+  }
+
   return (
     <div className="cars-page">
       <div className="data">
@@ -23,18 +28,27 @@ function Cars() {
                 className="me-auto my-2 my-lg-0"
                 style={{ maxHeight: "100px" }}
                 navbarScroll
-              >
-              </Nav>
-              <Form className="d-flex">
+              ></Nav>
+              <Form className="d-flex" onSubmit={handleSubmit}>
                 <Form.Control
                   type="search"
                   placeholder="Search"
                   className="me-2"
                   aria-label="Search"
+                  value={inputText}
+                  name="search"
+                  onChange={(e) => setInputText(e.target.value)}
                 />
-                <Button variant="outline-success">Search</Button>
+                <Button
+                  variant="outline-success"
+                  type="submit"
+                >
+                  Search
+                </Button>
                 <div className="new">
-                   <Link to="/"><Button variant="outline-danger">Sign Out</Button></Link>
+                  <Link to="/">
+                    <Button variant="outline-danger">Sign Out</Button>
+                  </Link>
                 </div>
               </Form>
             </Navbar.Collapse>

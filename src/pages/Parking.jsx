@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Cars from '../components/Cars'
 import Banner from '../components/Cars/Banner'
 
 function Parking() {
+
+  const [inputText, setInputText] = useState("");
   return (
     <div>
-        <Cars />
-        <Banner />
+      <Cars inputText={inputText} setInputText={setInputText}/>
+        <Banner inputText={inputText} setInputText={setInputText}/>
     </div>
   )
 }

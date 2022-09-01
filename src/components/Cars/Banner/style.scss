@@ -1,13 +1,27 @@
 .page2{
         text-align: center;
         margin-top: 30px;
+        
+}
+
+.main-data-page{
+    padding-bottom: 120px;
+    background-image: url(../../Images/cars.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0px;
+    .slip-page{
+        display: none;
+    }
 }
 .modal-content{
     text-align: center;
     padding: 40px 0px;
     h2{
         margin-bottom: 20px;
-        color: brown;
+        // color: brown;
     }
     input{
         width: 80%;
@@ -22,7 +36,15 @@
 }
 .space{
     text-align: center;
-    margin-top: 30px;
+    padding-top: 30px;
+    h3{
+      color: white;
+    }
+}
+.slip-data{
+  h4{
+  font-weight: 900 !important;
+  }
 }
 .cars{
     background-color: aliceblue;
@@ -33,6 +55,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 
     .numbers{
         display: flex;
@@ -43,7 +66,8 @@
 }
 .icones{
     text-align: end;
-    padding-right: 30px;
+    margin-right: 30px;
+    display: flex;
 i{
     cursor: pointer;
     text-align: end;
@@ -61,3 +85,49 @@ i{
 }
 }
 }
+.slip-page {
+    // width: 30%;
+    margin: auto;
+    padding: 80px 20px 54px;
+    background-color: aliceblue;
+    display: block;
+    h4 {
+      text-align: center;
+    }
+    .ticket {
+      h3 {
+        margin-top: 20px;
+        padding: 20px 0px;
+        border-top: 1px dashed gainsboro;
+        border-bottom: 1px dashed gainsboro;
+        text-align: center;
+      }
+    }
+    .types {
+      margin-bottom: 20px;
+      border-bottom: 1px dashed gainsboro;
+      .data-new {
+        display: flex;
+      }
+      .plate-new {
+        display: flex;
+      }
+    }
+    .fee {
+      display: flex;
+      border-bottom: 1px dashed gainsboro;
+    }
+    .date {
+      display: flex;
+      padding-top: 10px;
+    }
+    .time {
+      display: flex;
+      border-bottom: 1px dashed gainsboro;
+      margin-bottom: 10px;
+    }
+    .instructions {
+      padding-top: 10px;
+    }
+  }
+  

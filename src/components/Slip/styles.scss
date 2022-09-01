@@ -1,0 +1,45 @@
+.slip-page {
+  // width: 30%;
+  margin: auto;
+  padding: 80px 20px 54px;
+  background-color: aliceblue;
+  display: block;
+  h4 {
+    text-align: center;
+  }
+  .ticket {
+    h3 {
+      margin-top: 20px;
+      padding: 20px 0px;
+      border-top: 1px dashed gainsboro;
+      border-bottom: 1px dashed gainsboro;
+      text-align: center;
+    }
+  }
+  .types {
+    margin-bottom: 20px;
+    border-bottom: 1px dashed gainsboro;
+    .data-new {
+      display: flex;
+    }
+    .plate-new {
+      display: flex;
+    }
+  }
+  .fee {
+    display: flex;
+    border-bottom: 1px dashed gainsboro;
+  }
+  .date {
+    display: flex;
+    padding-top: 10px;
+  }
+  .time {
+    display: flex;
+    border-bottom: 1px dashed gainsboro;
+    margin-bottom: 10px;
+  }
+  .instructions {
+    padding-top: 10px;
+  }
+}

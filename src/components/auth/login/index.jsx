@@ -64,7 +64,7 @@ function Login() {
                         <p>{err.password}</p>
                         <Button type="submit">Submit</Button>
                     </Form>
-                    <Link to="/signup">Don't have an account? sign up</Link>
+                    {/* <Link to="/signup">Don't have an account? sign up</Link> */}
                 </div>
             </div>
         </div>
