@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 import { Form } from "react-bootstrap"
 import "./styles.scss"
-import { Link  ,useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
 

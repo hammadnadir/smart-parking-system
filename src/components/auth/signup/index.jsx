@@ -19,8 +19,6 @@ function Login() {
 
         let error = {}
 
-        let myName = "Zeeshan"
-        let myPassword = "pucit"
 
         if (!value.firstname) {
             error.firstname = "firstname is required"

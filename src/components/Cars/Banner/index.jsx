@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, Button, Modal, Form } from "react-bootstrap";
 import "./style.scss";
 import ReactToPrint from "react-to-print";
-// import { ComponentToPrint } from "../../Slip";
 
 function Banner({ inputText }) {
   const getCarsData = () => {
@@ -16,11 +15,6 @@ function Banner({ inputText }) {
     return JSON.parse(newValues);
   };
   
-  const getSub = () => {
-    const newValues = localStorage.getItem("aaaa");
-    if (!newValues) return 1000;
-    return JSON.parse(newValues);
-  };
   const [show, setShow] = useState(false);
   const [data, setData] = useState(getCarsData);
   const [enterNo, setEnterNo] = useState("");
