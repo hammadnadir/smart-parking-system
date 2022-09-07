@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Nav,
@@ -29,7 +29,7 @@ function Cars({inputText ,setInputText }) {
                 navbarScroll
               ></Nav>
               <Form className="d-flex" onSubmit={handleSubmit}>
-                <Form.Control
+                {/* <Form.Control
                   type="search"
                   placeholder="Search"
                   className="me-2"
@@ -43,7 +43,7 @@ function Cars({inputText ,setInputText }) {
                   type="submit"
                 >
                   Search
-                </Button>
+                </Button> */}
                 <div className="new">
                   <Link to="/">
                     <Button variant="outline-danger">Sign Out</Button>

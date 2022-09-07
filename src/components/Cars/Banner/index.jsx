@@ -2,43 +2,67 @@ import React, { useEffect, useRef, useState } from "react";
 import { Container, Button, Modal, Form } from "react-bootstrap";
 import "./style.scss";
 import ReactToPrint from "react-to-print";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCars ,addParkCar ,removeParkCar ,editParkCar ,fetchCarById } from "../../../redux/cars";
 
 function Banner({ inputText }) {
-  const getCarsData = () => {
-    const storedValues = localStorage.getItem("form");
-    if (!storedValues) return [];
-    return JSON.parse(storedValues);
-  };
-  const getQuantity = () => {
-    const newValues = localStorage.getItem("numbers");
-    if (!newValues) return 100;
-    return JSON.parse(newValues);
-  };
-  
+
   const [show, setShow] = useState(false);
-  const [data, setData] = useState(getCarsData);
-  const [enterNo, setEnterNo] = useState("");
+  const [newData, setNewData] = useState([]);
+  const [enterNo, setEnterNo] = useState(1);
   const [submitNo, setSubmitNo] = useState();
-  const [spaces, setSpaces] = useState(getQuantity);
+  const [spaces, setSpaces] = useState(100);
+
+  const dispatch = useDispatch();
+
+  const { parkCars ,carById } = useSelector((state)=>state.cars)
+
+  console.log(carById)
+
+  useEffect(()=>{
+    dispatch(fetchCars())
+  },[])
+
+  useEffect(()=>{
+    setNewData(parkCars)
+  },[parkCars])
+
+  // const getCarsData = () => {
+  //   const storedValues = localStorage.getItem("form");
+  //   if (!storedValues) return [];
+  //   return JSON.parse(storedValues);
+  // };
+  // const getQuantity = () => {
+  //   const newValues = localStorage.getItem("numbers");
+  //   if (!newValues) return 100;
+  //   return JSON.parse(newValues);
+  // };
 
   const reference = useRef(null);
 
   const handlePrint = (item,index) => {
-    setSubmitNo(data.number);
+    setSubmitNo(item.number);
     // const abcd = item.number;
-    // setSubmitNo(data[index].number)
-    console.log(submitNo)
+    // setSubmitNo(data[index].number);
+    console.log(submitNo);
+    dispatch(fetchCarById(item)
+    .then(fetchCars())
+    );
   };
 
   const handledelete = (value) => {
-    const filtered = data.filter((items) => items !== value);
-    setData(filtered);
+    // const filtered = newData.filter((items) => items !== value);
+    // parkCars(filtered);
     setSpaces(spaces + 1);
+    console.log(value)
+    dispatch(removeParkCar(value))
+    .then(fetchCars())
   };
 
-  useEffect(() => {
-    localStorage.setItem("form", JSON.stringify(data));
-  }, [data]);
+  // useEffect(() => {
+  //   localStorage.setItem("form", JSON.stringify(data));
+  // }, [data]);
+
   useEffect(() => {
     localStorage.setItem("aaaa", JSON.stringify(submitNo));
   }, [submitNo]);
@@ -53,11 +77,11 @@ function Banner({ inputText }) {
       alert("please enter no");
     } else {
       setSubmitNo(enterNo);
-      setData([...data, { number: enterNo }]);
+      // setData([...data, { number: enterNo }]);
       setShow(false);
-      console.log(data);
       setEnterNo("");
       setSpaces(spaces - 1);
+      dispatch(addParkCar({ "car_number" : enterNo }));
     }
   };
   const current = new Date();
@@ -71,12 +95,13 @@ function Banner({ inputText }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleEdit = (value, index) => {
+  const handleEdit = async  (value, index) => {
     setShow(true);
     setSpaces(spaces + 1);
-    const filtered = data.filter((abcd)=>abcd !== value)
-    setData(filtered)
-    setEnterNo({ number: value.number });
+    // const filtered = data.filter((abcd)=>abcd !== value)
+    // setData(filtered)
+    setEnterNo({});
+    await dispatch(editParkCar(value))
   };
 
   return (
@@ -108,28 +133,28 @@ function Banner({ inputText }) {
           </Modal>
         </div>
         <div>
-          {data?.length > 0 &&
-            data
-              ?.filter((items) =>
-                items.number.match(new RegExp(inputText, "i"))
-              )
-              .reverse()
-              .map((item, index) => {
+          {newData?.length > 0 &&
+            newData
+              // ?.filter((items) =>
+              //   items.car_number.match(new RegExp(inputText, "i"))
+              // )
+              ?.map((item, index) => {
                 return (
                   <div className="cars" key={index}>
                     <div className="numbers">
                       <h4>Number:</h4>&nbsp;
-                      <h4>{item.number}</h4>
+                      <h4>{item.car_number}</h4>
                     </div>
                     <div className="icones">
-                      <i
+                      {/* <i
                         onClick={() => handleEdit(item, index)}
                         class="bi bi-pen"
-                      ></i>
-                      <div onClick={()=>handlePrint(item,index)}
+                      ></i> */}
+                      <div 
+                      onClick={()=>handlePrint(item,index)}
                       // onDoubleClick={setPrintSlip(true)}
-                      ><ReactToPrint
-                          // onBeforeGetContent={()=>handlePrint(item)}
+                      > <ReactToPrint
+                          // onBeforeGetContent={()=>handlePrint(item,index)}
                           // onClick={() => handlePrint(item)}
                           content={()=>reference.current}
                           // onSubmit={() => handlePrint(item)}
@@ -159,7 +184,7 @@ function Banner({ inputText }) {
                             </div>
                             <div className="plate-new">
                               <p>Plate No:</p>&nbsp;
-                              <p>{submitNo}</p>
+                              <p>{carById?.car_number}</p>
                             </div>
                           </div>
                           <div className="fee">

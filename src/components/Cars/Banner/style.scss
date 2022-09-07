@@ -10,7 +10,8 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
+    min-height: 100vh;
+    max-height: fit-content;
     margin: 0px;
     .slip-page{
         display: none;
