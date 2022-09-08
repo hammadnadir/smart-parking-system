@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Container, Button, Modal, Form } from "react-bootstrap";
 import "./style.scss";
-import ReactToPrint from "react-to-print";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCars ,addParkCar ,removeParkCar ,editParkCar ,fetchCarById } from "../../../redux/cars";
+import {
+  fetchCars,
+  addParkCar,
+  removeParkCar,
+  editParkCar,
+  fetchCarById,
+} from "../../../redux/cars";
+import { useNavigate } from "react-router-dom";
 
 function Banner({ inputText }) {
-
   const [show, setShow] = useState(false);
   const [newData, setNewData] = useState([]);
   const [enterNo, setEnterNo] = useState(1);
@@ -14,18 +19,19 @@ function Banner({ inputText }) {
   const [spaces, setSpaces] = useState(100);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { parkCars ,carById } = useSelector((state)=>state.cars)
+  const { parkCars, carById } = useSelector((state) => state.cars);
 
-  console.log(carById)
+  console.log(carById);
 
-  useEffect(()=>{
-    dispatch(fetchCars())
-  },[])
+  useEffect(() => {
+    dispatch(fetchCars());
+  }, []);
 
-  useEffect(()=>{
-    setNewData(parkCars)
-  },[parkCars])
+  useEffect(() => {
+    setNewData(parkCars);
+  }, [parkCars]);
 
   // const getCarsData = () => {
   //   const storedValues = localStorage.getItem("form");
@@ -40,28 +46,20 @@ function Banner({ inputText }) {
 
   const reference = useRef(null);
 
-  const handlePrint = (item,index) => {
-    setSubmitNo(item.number);
+  const handlePrint = (item, index) => {
+    // setSubmitNo(item.number);
     // const abcd = item.number;
     // setSubmitNo(data[index].number);
-    console.log(submitNo);
-    dispatch(fetchCarById(item)
-    .then(fetchCars())
-    );
+    // console.log(submitNo);
+    dispatch(fetchCarById(item));
+    navigate("/slip")
   };
 
   const handledelete = (value) => {
-    // const filtered = newData.filter((items) => items !== value);
-    // parkCars(filtered);
     setSpaces(spaces + 1);
-    console.log(value)
-    dispatch(removeParkCar(value))
-    .then(fetchCars())
+    console.log(value);
+    dispatch(removeParkCar(value)).then(fetchCars());
   };
-
-  // useEffect(() => {
-  //   localStorage.setItem("form", JSON.stringify(data));
-  // }, [data]);
 
   useEffect(() => {
     localStorage.setItem("aaaa", JSON.stringify(submitNo));
@@ -77,11 +75,10 @@ function Banner({ inputText }) {
       alert("please enter no");
     } else {
       setSubmitNo(enterNo);
-      // setData([...data, { number: enterNo }]);
       setShow(false);
       setEnterNo("");
       setSpaces(spaces - 1);
-      dispatch(addParkCar({ "car_number" : enterNo }));
+      dispatch(addParkCar({ car_number: enterNo }));
     }
   };
   const current = new Date();
@@ -95,21 +92,19 @@ function Banner({ inputText }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleEdit = async  (value, index) => {
+  const handleEdit = async (value, index) => {
     setShow(true);
     setSpaces(spaces + 1);
     // const filtered = data.filter((abcd)=>abcd !== value)
     // setData(filtered)
     setEnterNo({});
-    await dispatch(editParkCar(value))
+    await dispatch(editParkCar(value));
   };
 
   return (
     <div className="main-data-page">
       <Container>
-        <div className="space">
-          <h3>Avalible Space: {spaces}</h3>
-        </div>
+        <div className="space">{/* <h3>Avalible Space: {spaces}</h3> */}</div>
         <div className="page2">
           <Button variant="primary" onClick={handleShow}>
             Add New Car
@@ -150,63 +145,16 @@ function Banner({ inputText }) {
                         onClick={() => handleEdit(item, index)}
                         class="bi bi-pen"
                       ></i> */}
-                      <div 
-                      onClick={()=>handlePrint(item,index)}
-                      // onDoubleClick={setPrintSlip(true)}
-                      > <ReactToPrint
-                          // onBeforeGetContent={()=>handlePrint(item,index)}
-                          // onClick={() => handlePrint(item)}
-                          content={()=>reference.current}
-                          // onSubmit={() => handlePrint(item)}
-                          removeAfterPrint
-                          trigger={() => (
-                            <i
-                              className="bi bi-printer"
-                              style={{ cursor: "pointer" }}
-                            ></i>
-                          )}
-                        />
+                      <div><i
+                          className="bi bi-printer"
+                          onClick={() => handlePrint(item, index)}
+                          style={{ cursor: "pointer" }}
+                        ></i>
                       </div>
                       <i
                         className="bi bi-trash-fill"
                         onClick={() => handledelete(item)}
                       ></i>
-                    </div>
-                    <div className="slip-page" ref={reference}>
-                      <div className="slip-data">
-                        <h4>Smart Parking System</h4>
-                        <div className="ticket">
-                          <h3>Parking Ticket</h3>
-                          <div className="types">
-                            <div className="data-new">
-                              <p>Vehicle Type:</p>&nbsp;
-                              <p>Car</p>
-                            </div>
-                            <div className="plate-new">
-                              <p>Plate No:</p>&nbsp;
-                              <p>{carById?.car_number}</p>
-                            </div>
-                          </div>
-                          <div className="fee">
-                            <p>Fee:</p>&nbsp;
-                            <p>50 PKR</p>
-                          </div>
-                          <div className="date">
-                            <p>Date:</p>&nbsp;
-                            <p>{date}</p>
-                          </div>
-                          <div className="time">
-                            <p>Time:</p>&nbsp;
-                            <p>{time}</p>
-                          </div>
-                          <div className="instructions">
-                            <p>
-                              Parking at your own risk.Smart parking will not be
-                              responsible for any loss.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 );

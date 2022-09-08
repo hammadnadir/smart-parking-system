@@ -1,10 +1,22 @@
+.btn-div{
+  text-align: center;
+  margin: 30px auto !important;
+Button{
+  width: 150px;
+  padding: 5px 30px;
+  text-align: center;
+  border-radius: 0px !important;
+}
+}
 .slip-page {
-  // width: 30%;
+  margin-bottom: 100px !important;
+  width: 400px;
   margin: auto;
   padding: 80px 20px 54px;
   background-color: aliceblue;
   display: block;
   h4 {
+    font-weight: 700 !important;
     text-align: center;
   }
   .ticket {

@@ -10,6 +10,7 @@ const initialState = {
   editCarNo: {},
   loading: false,
   error: "",
+  setCarsOnDelete: {}
 };
 
 export const fetchCars = createAsyncThunk("cars/fetchCars", async (_, thunkAPI) => {
@@ -25,16 +26,19 @@ export const addParkCar = createAsyncThunk("car/addParkCar", async (payload, thu
 
 export const removeParkCar = createAsyncThunk("car/removeParkCar", async (payload, thunkAPI) => {
     const response = await request.delete(`slot/${payload._id}`,payload)
-    console.log(`slot/${payload._id}`)
-    const state = thunkAPI.getState()
-    console.log(state)
-    const filtered = state.cars.parkCars.filter((data)=>data.id !== payload._id)
-    await thunkAPI.dispatch(setBrandFilter(filtered))
+    await request.get(`slot`)
+    thunkAPI.dispatch(setCarFilter(payload))
+    // console.log(`slot/${payload._id}`)
+    // const state = thunkAPI.getState()
+    // console.log(state)
+    // const filtered = state.cars.parkCars.filter((data)=>data.id !== payload._id)
+    // await thunkAPI.dispatch(setCarsOnDelete(payload))
     return response;
 });
 
 export const editParkCar = createAsyncThunk("car/editParkCar", async (payload, thunkAPI) => {
   const response = await request.put(`slot/${payload.id}`,payload)
+  await request.get(`slot`)
   return response;
 });
 
@@ -47,8 +51,11 @@ const carSlice = createSlice({
   name: "parkCars",
   initialState,
   reducers: {
-    setBrandFilter: (state, action) => {
-      state.parkCars = action.payload;
+    setCarFilter: (state, action) => {
+      state.parkCars = state.parkCars.filter(data => data.id !== action.payload.id);
+    },
+    setParkCars: (state, action) => {
+      state.parkCars = [...state.parkCars,action.payload]
     },
   },
   extraReducers: (builder) => {
@@ -133,6 +140,6 @@ const carSlice = createSlice({
   },
 });
 
-export const { setBrandFilter } = carSlice.actions;
+export const { setCarFilter ,setParkCars } = carSlice.actions;
 
 export default carSlice.reducer;
